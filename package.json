@@ -1,0 +1,30 @@
+{
+  "name": "figma-tokens",
+  "version": "1.0.0",
+  "description": "A tool for generate Figma design tokens as variables",
+  "main": "src/index.js",
+  "private": true,
+  "bin": {
+    "figma-tokens": "bin/figma-tokens"
+  },
+  "scripts": {
+    "tokens:figma": "rm -rf tokens && bin/figma-tokens",
+    "tokens:build": "style-dictionary build",
+    "tokens": "npm run tokens:figma && npm run tokens:build",
+    "figma-tokens": "npm run tokens"
+  },
+  "keywords": [
+    "cli",
+    "figma",
+    "design tokens"
+  ],
+  "author": "Juan Carlos Ruiz <klaufel@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/klaufel/figma-tokens#readme",
+  "dependencies": {
+    "esm": "^3.2.25",
+    "file-system": "^2.2.2",
+    "node-fetch": "^2.6.0",
+    "style-dictionary": "^2.8.3"
+  }
+}
