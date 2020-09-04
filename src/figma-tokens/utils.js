@@ -1,10 +1,8 @@
 export const filterArtboard = (layerName, stylesArtboard) =>
   stylesArtboard.filter(item => item.name === layerName)[0].children
 
-export const filterElements = (layerName, stylesArtboard) =>
-  filterArtboard(layerName, stylesArtboard).filter(
-    item => item.type === 'COMPONENT'
-  )
+export const filterElements = (layerName, stylesArtboard, type = 'COMPONENT') =>
+  filterArtboard(layerName, stylesArtboard).filter(item => item.type === type)
 
 export const getTokens = (layerName, stylesArtboard, palette, decorator) => {
   const elements = filterElements(layerName, stylesArtboard)
