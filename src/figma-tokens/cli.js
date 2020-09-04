@@ -2,7 +2,7 @@ import fs from 'file-system'
 import genTokens from './gen'
 const path = './config.figma.json'
 
-function cli() {
+export function cli() {
   fs.access(path, fs.F_OK, err => {
     if (err) {
       throw new Error(
@@ -31,5 +31,3 @@ function cli() {
     })
   })
 }
-
-module.exports = cli
