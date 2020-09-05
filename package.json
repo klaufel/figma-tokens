@@ -1,6 +1,6 @@
 {
   "name": "figma-tokens",
-  "version": "0.0.1",
+  "version": "0.0.1-beta",
   "description": "A tool for generate Figma design tokens as variables",
   "main": "src/index.js",
   "private": true,
