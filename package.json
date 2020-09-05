@@ -1,6 +1,6 @@
 {
   "name": "@klaufel/figma-tokens",
-  "version": "0.0.1",
+  "version": "0.0.1-beta",
   "description": "A tool for generate Figma design tokens as variables",
   "main": "src/index.js",
   "repository": {
@@ -45,8 +45,5 @@
   },
   "dependencies": {
     "husky": "^4.2.5"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/klaufel"
   }
 }
