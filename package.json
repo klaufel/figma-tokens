@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "A tool for generate Figma design tokens as variables",
   "main": "src/index.js",
-  "repository": "git@github.com:klaufel/figma-tokens.git",
+  "repository": {
+    "url": "git@github.com:klaufel/figma-tokens.git"
+  },
   "scripts": {
     "tokens": "npm run tokens:api && npm run tokens:build",
     "tokens:api": "bin/figma-tokens",
