@@ -1,13 +1,11 @@
-import tokens from '../../../tokens/json/spacing'
+import {spacing} from '../../../tokens/json/spacing'
 
-const spacing = {
-  xxs: tokens.spacing.xxs.value,
-  xs: tokens.spacing.xs.value,
-  sm: tokens.spacing.sm.value,
-  md: tokens.spacing.md.value,
-  lg: tokens.spacing.lg.value,
-  xl: tokens.spacing.xl.value,
-  xxl: tokens.spacing.xxl.value
+export default {
+  xxs: spacing?.xxs?.value,
+  xs: spacing?.xs?.value,
+  sm: spacing?.sm?.value,
+  md: spacing?.md?.value,
+  lg: spacing?.lg?.value,
+  xl: spacing?.xl?.value,
+  xxl: spacing?.xxl?.value
 }
-
-export default spacing
