@@ -1,6 +1,6 @@
 {
   "name": "figma-tokens",
-  "version": "0.0.1-beta",
+  "version": "0.0.2-beta",
   "description": "A tool for generate Figma design tokens as variables",
   "main": "src/index.js",
   "repository": {
@@ -22,12 +22,15 @@
   "author": "Juan Carlos Ruiz <klaufel@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/klaufel/figma-tokens#readme",
+  "dependencies": {
+    "esm": "^3.2.25"
+  },
   "devDependencies": {
     "@s-ui/lint": "^3.16.0",
-    "esm": "^3.2.25",
     "file-system": "^2.2.2",
     "node-fetch": "^2.6.0",
-    "style-dictionary": "^2.10.1"
+    "style-dictionary": "^2.10.1",
+    "husky": "^4.2.5"
   },
   "eslintConfig": {
     "extends": [
@@ -42,8 +45,5 @@
     "hooks": {
       "pre-commit": "npm run prettier:write"
     }
-  },
-  "dependencies": {
-    "husky": "^4.2.5"
   }
 }
