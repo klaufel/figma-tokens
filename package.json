@@ -3,7 +3,6 @@
   "version": "0.0.1-beta",
   "description": "A tool for generate Figma design tokens as variables",
   "main": "src/index.js",
-  "private": true,
   "scripts": {
     "tokens": "npm run tokens:api && npm run tokens:build",
     "tokens:api": "bin/figma-tokens",
@@ -42,5 +41,8 @@
   },
   "dependencies": {
     "husky": "^4.2.5"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }
