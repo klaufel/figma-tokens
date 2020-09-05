@@ -9,7 +9,8 @@
     "tokens:api": "bin/figma-tokens",
     "tokens:build": "style-dictionary build",
     "prettier:check": "prettier \"./src/**/*.{js,jsx}\" --check",
-    "prettier:write": "prettier \"./src/**/*.{js,jsx}\" --write"
+    "prettier:write": "prettier \"./src/**/*.{js,jsx}\" --write",
+    "release": "node scripts/release.js"
   },
   "keywords": [
     "cli",
