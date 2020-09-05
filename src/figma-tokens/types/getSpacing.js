@@ -3,9 +3,12 @@ import {getTokens, camelCase} from '../utils'
 const getSpacing = (layerName, stylesArtboard) => {
   const palette = {spacing: {}}
   const decorator = element => {
-    const {name, absoluteBoundingBox} = element
+    const {
+      name,
+      absoluteBoundingBox: {width}
+    } = element
     const tokens = {
-      [camelCase(name)]: {value: `${absoluteBoundingBox.width}px`}
+      [camelCase(name)]: {value: `${width}px`}
     }
     Object.assign(palette.spacing, tokens)
   }

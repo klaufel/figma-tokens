@@ -7,7 +7,9 @@
   "scripts": {
     "tokens": "npm run tokens:api && npm run tokens:build",
     "tokens:api": "bin/figma-tokens",
-    "tokens:build": "style-dictionary build"
+    "tokens:build": "style-dictionary build",
+    "prettier:check": "prettier \"./src/**/*.{js,jsx}\" --check",
+    "prettier:write": "prettier \"./src/**/*.{js,jsx}\" --write"
   },
   "keywords": [
     "cli",
@@ -32,5 +34,13 @@
   "prettier": "./node_modules/@s-ui/lint/.prettierrc.js",
   "stylelint": {
     "extends": "./node_modules/@s-ui/lint/stylelint.config.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run prettier:write"
+    }
+  },
+  "dependencies": {
+    "husky": "^4.2.5"
   }
 }
