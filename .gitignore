@@ -10,4 +10,5 @@ npm-debug.log
 .DS_Store
 .npmrc
 tokens/
+config.json
 config.figma.json
