@@ -1,5 +1,4 @@
 {
   "FIGMA_APIKEY": "YOUR_FIGMA_API_KEY",
-  "FIGMA_ID": "YOUR_FIGMA_ID",
-  "DIST": "./tokens"
+  "FIGMA_ID": "YOUR_FIGMA_ID"
 }
