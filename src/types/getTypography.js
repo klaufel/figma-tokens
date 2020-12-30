@@ -1,4 +1,4 @@
-import {getTokens, camelCase} from '../utils'
+const {getTokens, camelCase} = require('../utils')
 
 const getTypography = (layerName, stylesArtboard) => {
   const palette = {typography: {}}
@@ -25,4 +25,4 @@ const getTypography = (layerName, stylesArtboard) => {
   return getTokens(layerName, stylesArtboard, palette, decorator)
 }
 
-export default getTypography
+module.exports = getTypography

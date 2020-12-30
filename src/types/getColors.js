@@ -1,4 +1,4 @@
-import {getTokens, camelCase, rgbaGenObject, fullColorHex} from '../utils'
+const {getTokens, camelCase, rgbaGenObject, fullColorHex} = require('../utils')
 
 const getColors = (layerName, stylesArtboard) => {
   const palette = {color: {}}
@@ -17,4 +17,4 @@ const getColors = (layerName, stylesArtboard) => {
   return getTokens(layerName, stylesArtboard, palette, decorator)
 }
 
-export default getColors
+module.exports = getColors

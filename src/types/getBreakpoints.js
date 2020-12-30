@@ -1,4 +1,4 @@
-import {getTokens, camelCase} from '../utils'
+const {getTokens, camelCase} = require('../utils')
 
 const getBreakpoints = (layerName, stylesArtboard) => {
   const palette = {breakpoint: {}}
@@ -13,4 +13,4 @@ const getBreakpoints = (layerName, stylesArtboard) => {
   return getTokens(layerName, stylesArtboard, palette, decorator)
 }
 
-export default getBreakpoints
+module.exports = getBreakpoints

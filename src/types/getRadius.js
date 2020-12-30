@@ -1,4 +1,4 @@
-import {getTokens, camelCase} from '../utils'
+const {getTokens, camelCase} = require('../utils')
 
 const getRadius = (layerName, stylesArtboard) => {
   const palette = {radius: {}}
@@ -14,4 +14,4 @@ const getRadius = (layerName, stylesArtboard) => {
   return getTokens(layerName, stylesArtboard, palette, decorator)
 }
 
-export default getRadius
+module.exports = getRadius

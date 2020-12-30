@@ -1,11 +1,15 @@
-import fs from 'fs'
-import fetch from 'node-fetch'
-import getColors from './types/getColors'
-import getTypography from './types/getTypography'
-import getSpacing from './types/getSpacing'
-import getShadows from './types/getShadows'
-import getBreakpoints from './types/getBreakpoints'
-import getRadius from './types/getRadius'
+/* eslint-disable no-console */
+const fs = require('fs')
+const ora = require('ora')
+const fetch = require('node-fetch')
+const {
+  getColors,
+  getTypography,
+  getSpacing,
+  getShadows,
+  getBreakpoints,
+  getRadius
+} = require('./types')
 
 const emojis = {
   color: '🎨',
@@ -21,21 +25,15 @@ const genFile = (name, tokens, outDir) =>
     `${outDir}/${name}.json`,
     JSON.stringify(tokens, null, 2),
     err => {
-      if (err) {
-        throw new Error(`\x1b[31m\n\n❌ ${err}\n\n`)
-      }
-      // eslint-disable-next-line no-console
-      console.log(
-        `\x1b[32m ${
-          emojis[name]
-        } ${name.toUpperCase()} tokens created!\x1b[0m\n`
-      )
+      if (err) throw new Error(`\x1b[31m\n\n❌ ${err}\n\n`)
+      console.log(`\x1b[32m ${emojis[name]} ${name} tokens created!\x1b[0m`)
     }
   )
 
 const genTokens = (apikey, id, outDir) => {
   // eslint-disable-next-line no-console
-  console.log('\x1b[40m 🚀 Connecting with Figma... \x1b[0m\n')
+  const spinner = ora('🚀 Connecting with Figma...\n').start()
+
   const FETCH_PATH = 'https://api.figma.com/v1/files'
   const FETCH_URL = `${FETCH_PATH}/${id}`
   const FETCH_DATA = {
@@ -48,10 +46,7 @@ const genTokens = (apikey, id, outDir) => {
   try {
     fetch(FETCH_URL, FETCH_DATA)
       .then(response => {
-        // eslint-disable-next-line no-console
-        console.log(
-          ' Connection with Figma is successful...\n\n----------------\n'
-        )
+        spinner.text = '🚀 Generating Figma design tokens...\n'
         return response.json()
       })
       .then(styles => {
@@ -68,6 +63,8 @@ const genTokens = (apikey, id, outDir) => {
             getBreakpoints('Breakpoints', figmaTree),
             outDir
           )
+
+          spinner.stop()
         }
       })
       .catch(err => {
@@ -78,4 +75,4 @@ const genTokens = (apikey, id, outDir) => {
   }
 }
 
-export default genTokens
+module.exports = genTokens
