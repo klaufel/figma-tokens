@@ -9,8 +9,7 @@ const filterElements = (layerName, stylesArtboard = [], type = 'COMPONENT') => {
 
 const getTokens = (layerName, stylesArtboard, palette, decorator) => {
   const elements = filterElements(layerName, stylesArtboard)
-  console.log(elements)
-  // elements.map(element => console.log(element))
+  elements.map(element => decorator(element))
   return palette
 }
 
@@ -62,17 +61,17 @@ const genShadow = (color, offset, radius) => {
 }
 
 module.exports = {
+  camelCase,
   filterArtboard,
   filterElements,
-  getTokens,
-  camelCase,
-  trim,
+  fullColorHex,
+  genShadow,
   getColor,
+  getTokens,
+  parseRGBA,
   rgbaGen,
   rgbaGenObject,
   rgbGen,
   rgbToHex,
-  fullColorHex,
-  parseRGBA,
-  genShadow
+  trim
 }

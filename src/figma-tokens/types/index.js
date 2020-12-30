@@ -1,15 +1,15 @@
-const getColors = require('./getColors')
-const getTypography = require('./getTypography')
-const getSpacing = require('./getSpacing')
-const getShadows = require('./getShadows')
 const getBreakpoints = require('./getBreakpoints')
+const getColors = require('./getColors')
 const getRadius = require('./getRadius')
+const getShadows = require('./getShadows')
+const getSpacing = require('./getSpacing')
+const getTypography = require('./getTypography')
 
 module.exports = {
-  getColors,
-  getTypography,
-  getSpacing,
-  getShadows,
   getBreakpoints,
-  getRadius
+  getColors,
+  getRadius,
+  getShadows,
+  getSpacing,
+  getTypography
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const fs = require('fs')
 const fetch = require('node-fetch')
 const {
@@ -23,10 +24,8 @@ const genFile = (name, tokens, outDir) =>
     `${outDir}/${name}.json`,
     JSON.stringify(tokens, null, 2),
     err => {
-      if (err) {
-        throw new Error(`\x1b[31m\n\n❌ ${err}\n\n`)
-      }
-      // eslint-disable-next-line no-console
+      if (err) throw new Error(`\x1b[31m\n\n❌ ${err}\n\n`)
+
       console.log(
         `\x1b[32m ${
           emojis[name]
@@ -50,7 +49,6 @@ const genTokens = (apikey, id, outDir) => {
   try {
     fetch(FETCH_URL, FETCH_DATA)
       .then(response => {
-        // eslint-disable-next-line no-console
         console.log(
           ' Connection with Figma is successful...\n\n----------------\n'
         )
@@ -60,8 +58,16 @@ const genTokens = (apikey, id, outDir) => {
         if (styles.status !== 403 && styles.status !== 404) {
           const figmaTree = styles.document.children[0].children
 
+          genFile('color', getColors('Colors', figmaTree), outDir)
+          genFile('spacing', getSpacing('Spacings', figmaTree), outDir)
+          genFile('typography', getTypography('Typography', figmaTree), outDir)
           genFile('shadow', getShadows('Shadows', figmaTree), outDir)
           genFile('radius', getRadius('Radius', figmaTree), outDir)
+          genFile(
+            'breakpoint',
+            getBreakpoints('Breakpoints', figmaTree),
+            outDir
+          )
         }
       })
       .catch(err => {
