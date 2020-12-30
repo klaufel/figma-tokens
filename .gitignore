@@ -1,6 +1,7 @@
 node_modules/
 public/
 dist/
+tokens/
 npm-debug.log
 .idea/
 .vscode/
@@ -9,6 +10,6 @@ npm-debug.log
 .tern-port
 .DS_Store
 .npmrc
-tokens/
+package-lock.json
 config.json
 config.figma.json
