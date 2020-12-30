@@ -1,4 +1,4 @@
-import {getTokens, camelCase, genShadow} from '../utils'
+const {getTokens, camelCase, genShadow} = require('../utils')
 
 const getShadows = (layerName, stylesArtboard) => {
   const palette = {shadow: {}}
@@ -14,4 +14,4 @@ const getShadows = (layerName, stylesArtboard) => {
   return getTokens(layerName, stylesArtboard, palette, decorator)
 }
 
-export default getShadows
+module.exports = getShadows

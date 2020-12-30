@@ -1,11 +1,13 @@
-import fs from 'fs'
-import fetch from 'node-fetch'
-import getColors from './types/getColors'
-import getTypography from './types/getTypography'
-import getSpacing from './types/getSpacing'
-import getShadows from './types/getShadows'
-import getBreakpoints from './types/getBreakpoints'
-import getRadius from './types/getRadius'
+const fs = require('fs')
+const fetch = require('node-fetch')
+const {
+  getColors,
+  getTypography,
+  getSpacing,
+  getShadows,
+  getBreakpoints,
+  getRadius
+} = require('./types')
 
 const emojis = {
   color: '🎨',
@@ -58,16 +60,8 @@ const genTokens = (apikey, id, outDir) => {
         if (styles.status !== 403 && styles.status !== 404) {
           const figmaTree = styles.document.children[0].children
 
-          genFile('color', getColors('Colors', figmaTree), outDir)
-          genFile('spacing', getSpacing('Spacings', figmaTree), outDir)
-          genFile('typography', getTypography('Typography', figmaTree), outDir)
           genFile('shadow', getShadows('Shadows', figmaTree), outDir)
           genFile('radius', getRadius('Radius', figmaTree), outDir)
-          genFile(
-            'breakpoint',
-            getBreakpoints('Breakpoints', figmaTree),
-            outDir
-          )
         }
       })
       .catch(err => {
@@ -78,4 +72,4 @@ const genTokens = (apikey, id, outDir) => {
   }
 }
 
-export default genTokens
+module.exports = genTokens
