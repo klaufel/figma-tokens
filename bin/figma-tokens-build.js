@@ -1,13 +1,12 @@
 #!/usr/bin/env node
-
-require = require('esm')(module)
-const fs = require('file-system')
-const path = './config.json'
+const fs = require('fs')
+const path = require('path')
 const StyleDictionary = require('style-dictionary')
 
-fs.access(path, fs.F_OK, err => {
-  if (err) {
-    // eslint-disable-next-line no-console
+const CONFIG_FILE = path.join(process.cwd(), '.', '/config.json')
+
+try {
+  if (!fs.existsSync(CONFIG_FILE)) {
     console.log(
       '\x1b[33m\n\n ⚠️ style-dictionary config was not found, using default settings!\n\nIf you need to overwrite it, create a `config.json`.\n\nSee: https://amzn.github.io/style-dictionary/#/config?id=configjson\n\n'
     )
@@ -160,4 +159,6 @@ fs.access(path, fs.F_OK, err => {
       }
     }
   }).buildAllPlatforms()
-})
+} catch (err) {
+  if (err) throw err
+}
