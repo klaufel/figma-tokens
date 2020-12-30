@@ -10,6 +10,5 @@ npm-debug.log
 .tern-port
 .DS_Store
 .npmrc
-package-lock.json
 config.json
 config.figma.json
