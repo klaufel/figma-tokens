@@ -2,35 +2,41 @@
   "name": "figma-tokens",
   "version": "0.0.5-beta",
   "description": "A tool for generate Figma design tokens as variables",
-  "main": "src/index.js",
+  "main": "bin/figma-tokens.js",
   "repository": {
     "url": "git@github.com:klaufel/figma-tokens.git"
   },
+  "bin": {
+    "figma-tokens": "bin/figma-tokens.js"
+  },
   "scripts": {
-    "tokens": "npm run tokens:api && npm run tokens:build",
-    "tokens:api": "bin/figma-tokens",
-    "tokens:build": "bin/build",
-    "prettier:check": "prettier \"./src/**/*.{js,jsx}\" --check",
-    "prettier:write": "prettier \"./src/**/*.{js,jsx}\" --write",
+    "test": "exit 0",
+    "figma-tokens": "npm run figma-tokens:api && npm run figma-tokens:build",
+    "figma-tokens:api": "node bin/figma-tokens-api.js",
+    "figma-tokens:build": "node bin/figma-tokens-build.js",
     "release": "node scripts/release.js"
   },
   "keywords": [
     "cli",
+    "design system",
+    "design tokens",
+    "design",
     "figma",
-    "design tokens"
+    "tokens"
   ],
   "author": "Juan Carlos Ruiz <klaufel@gmail.com>",
   "license": "MIT",
   "homepage": "https://github.com/klaufel/figma-tokens#readme",
   "dependencies": {
-    "esm": "^3.2.25",
+    "commander": "^6.2.1",
     "file-system": "^2.2.2",
-    "node-fetch": "^2.6.0",
-    "style-dictionary": "^2.10.1"
+    "node-fetch": "^2.6.1",
+    "ora": "^5.2.0",
+    "style-dictionary": "^2.10.2"
   },
   "devDependencies": {
-    "@s-ui/lint": "^3.16.0",
-    "husky": "^4.2.5"
+    "@s-ui/lint": "^3.30.0",
+    "husky": "^4.3.6"
   },
   "eslintConfig": {
     "extends": [
@@ -43,7 +49,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run prettier:write"
+      "pre-commit": "prettier \"./src/**/*.{js,jsx}\" --write"
     }
   }
 }
