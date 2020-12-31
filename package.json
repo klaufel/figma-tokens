@@ -29,10 +29,8 @@
   "homepage": "https://github.com/klaufel/figma-tokens#readme",
   "dependencies": {
     "commander": "^6.2.1",
-    "file-system": "^2.2.2",
     "node-fetch": "^2.6.1",
-    "ora": "^5.2.0",
-    "style-dictionary": "^2.10.2"
+    "ora": "^5.2.0"
   },
   "devDependencies": {
     "@s-ui/lint": "^3.30.0",

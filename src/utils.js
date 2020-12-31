@@ -22,6 +22,13 @@ const camelCase = string => {
   return stringUpdate.charAt(0).toLowerCase() + stringUpdate.substring(1)
 }
 
+const kebabCase = string => {
+  return string
+    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+    .map(x => x.toLowerCase())
+    .join('-')
+}
+
 const trim = str => str.replace(/^\s+|\s+$/gm, '')
 
 const getColor = color => Math.round(color * 255)
@@ -62,6 +69,7 @@ const genShadow = (color, offset, radius) => {
 
 module.exports = {
   camelCase,
+  kebabCase,
   filterArtboard,
   filterElements,
   fullColorHex,
