@@ -6,7 +6,7 @@ const getShadows = (layerName, stylesArtboard) => {
     const {name} = element
     const {color, offset, radius} = element.effects[0]
     const tokens = {
-      [camelCase(name)]: {value: genShadow(color, offset, radius)}
+      [camelCase(name)]: genShadow(color, offset, radius)
     }
     Object.assign(palette.shadow, tokens)
   }

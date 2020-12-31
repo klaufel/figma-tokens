@@ -2,6 +2,10 @@
 const fs = require('fs')
 const ora = require('ora')
 const fetch = require('node-fetch')
+const path = require('path')
+
+const DESIGN_TOKENS_PATH = path.join(process.cwd(), '.', 'tokens')
+
 const {
   getColors,
   getTypography,
@@ -11,26 +15,22 @@ const {
   getRadius
 } = require('./types')
 
-const emojis = {
-  color: '🎨',
-  typography: '🖋 ',
-  spacing: '📐',
-  shadow: '🌚',
-  breakpoint: '🍪',
-  radius: '🌀'
-}
+const genFile = tokens => {
+  if (!fs.existsSync(DESIGN_TOKENS_PATH)) {
+    fs.mkdirSync(DESIGN_TOKENS_PATH)
+  }
 
-const genFile = (name, tokens, outDir) =>
   fs.writeFile(
-    `${outDir}/${name}.json`,
+    `${DESIGN_TOKENS_PATH}/tokens.json`,
     JSON.stringify(tokens, null, 2),
     err => {
       if (err) throw new Error(`\x1b[31m\n\n❌ ${err}\n\n`)
-      console.log(`\x1b[32m ${emojis[name]} ${name} tokens created!\x1b[0m`)
+      console.log('\x1b[32m✔︎\x1b[0m Figma design tokens created!\n')
     }
   )
+}
 
-const genTokens = (apikey, id, outDir) => {
+const genTokens = (apikey, id) => {
   // eslint-disable-next-line no-console
   const spinner = ora('🚀 Connecting with Figma...\n').start()
 
@@ -53,16 +53,16 @@ const genTokens = (apikey, id, outDir) => {
         if (styles.status !== 403 && styles.status !== 404) {
           const figmaTree = styles.document.children[0].children
 
-          genFile('color', getColors('Colors', figmaTree), outDir)
-          genFile('spacing', getSpacing('Spacings', figmaTree), outDir)
-          genFile('typography', getTypography('Typography', figmaTree), outDir)
-          genFile('shadow', getShadows('Shadows', figmaTree), outDir)
-          genFile('radius', getRadius('Radius', figmaTree), outDir)
-          genFile(
-            'breakpoint',
-            getBreakpoints('Breakpoints', figmaTree),
-            outDir
-          )
+          const tokens = {
+            ...getColors('Colors', figmaTree),
+            ...getSpacing('Spacings', figmaTree),
+            ...getTypography('Typography', figmaTree),
+            ...getShadows('Shadows', figmaTree),
+            ...getRadius('Radius', figmaTree),
+            ...getBreakpoints('Breakpoints', figmaTree)
+          }
+
+          genFile(tokens)
 
           spinner.stop()
         }

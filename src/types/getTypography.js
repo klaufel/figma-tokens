@@ -13,10 +13,10 @@ const getTypography = (layerName, stylesArtboard) => {
 
     const tokens = {
       [camelCase(name)]: {
-        fontFamily: {value: `'${fontFamily}'`},
-        fontSize: {value: `${fontSize}px`},
-        lineHeight: {value: `${Math.floor(lineHeightPx)}px`},
-        fontWeight: {value: fontWeight}
+        fontFamily: `'${fontFamily}'`,
+        fontSize: `${fontSize}px`,
+        lineHeight: `${Math.floor(lineHeightPx)}px`,
+        fontWeight: fontWeight
       }
     }
     Object.assign(palette.typography, tokens)
