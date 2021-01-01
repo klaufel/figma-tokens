@@ -31,7 +31,6 @@ const genFile = tokens => {
 }
 
 const genTokens = (apikey, id) => {
-  // eslint-disable-next-line no-console
   const spinner = ora('🚀 Connecting with Figma...\n').start()
 
   const FETCH_PATH = 'https://api.figma.com/v1/files'
@@ -53,22 +52,21 @@ const genTokens = (apikey, id) => {
         if (styles.status !== 403 && styles.status !== 404) {
           const figmaTree = styles.document.children[0].children
 
-          const tokens = {
+          genFile({
             ...getColors('Colors', figmaTree),
             ...getSpacing('Spacings', figmaTree),
             ...getTypography('Typography', figmaTree),
             ...getShadows('Shadows', figmaTree),
             ...getRadius('Radius', figmaTree),
             ...getBreakpoints('Breakpoints', figmaTree)
-          }
-
-          genFile(tokens)
+          })
 
           spinner.stop()
         }
       })
       .catch(err => {
-        throw new Error(`\x1b[31m\n\n❌ ${err}\n\n`)
+        spinner.stop()
+        throw new Error(`\x1b[31m\n\n❌ ${err}\n`)
       })
   } catch (err) {
     throw new Error(`\x1b[31m\n\n❌ ${err}\n\n`)

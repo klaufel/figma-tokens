@@ -1,36 +1,67 @@
 #!/usr/bin/env node
-/* eslint-disable no-console */
+/* eslint no-console:0 */
 const fs = require('fs')
 const path = require('path')
 const {camelCase, kebabCase} = require('../src/utils')
 
+const NAMING_CONVENTION = {kebabcase: kebabCase, camelcase: camelCase}
+
 const DESIGN_TOKENS_FILE = path.join(process.cwd(), '.', 'tokens/tokens.json')
 
-const toCSSWrapper = children => `:root {\n${children}}\n`
-const toCSS = ({prefix, property, value}) =>
-  `  --${kebabCase(`${prefix}-${property}`)}: ${value};\n`
+const FORMATS = {
+  css: {
+    decorator: ':root {\n%{children}}\n',
+    naming: 'kebabcase',
+    pattern: '  --%{property}: %{value};\n'
+  },
+  scss: {
+    naming: 'kebabcase',
+    pattern: '$%{property}: %{value};\n'
+  },
+  less: {
+    naming: 'kebabcase',
+    pattern: '@%{property}: %{value};\n'
+  },
+  js: {
+    naming: 'camelcase',
+    pattern: "export const %{property} = '%{value}'\n"
+  }
+}
 
-const toSCSSWrapper = children => `${children}`
-const toSCSS = ({prefix, property, value}) =>
-  `$${kebabCase(`${prefix}-${property}`)}: ${value};\n`
+const toCSSFormats = ({format, prefix, property, value}) => {
+  const {pattern, naming} = FORMATS[format]
+  const propertyWithPrefix = NAMING_CONVENTION[naming](`${prefix}-${property}`)
+  const options = {property: propertyWithPrefix, value}
 
-const toLESSWrapper = children => `${children}`
-const toLESS = ({prefix, property, value}) =>
-  `@${kebabCase(`${prefix}-${property}`)}: ${value};\n`
-
-const toJSWrapper = children => `${children}`
-const toJS = ({prefix, property, value}) =>
-  `export const ${camelCase(`${prefix}-${property}`)} = '${value}'\n`
-
-const OUPUT_FILE_FORMATS = {
-  css: [toCSSWrapper, toCSS],
-  js: [toJSWrapper, toJS],
-  less: [toLESSWrapper, toLESS],
-  scss: [toSCSSWrapper, toSCSS]
+  return pattern.replace(
+    new RegExp('%{([^}]+)}', 'gi'),
+    match => options[match.replace(/[^\w\s]/gi, '')]
+  )
 }
 
 const printDate = format =>
   `/* ${format.toUpperCase()} file automatically generated on ${new Date().toLocaleString()} */\n\n`
+
+const contentToFormat = ({format, styles}) => {
+  const {decorator} = FORMATS[format]
+  return (
+    printDate(format) +
+    (decorator ? decorator.replace('%{children}', styles) : styles)
+  )
+}
+
+const tokensDataMapper = data => {
+  const dataObject = JSON.parse(data)
+  const tokensLayers = Object.keys(dataObject)
+
+  return tokensLayers.map(layer =>
+    Object.keys(dataObject[layer]).map(property => ({
+      prefix: layer,
+      property,
+      value: dataObject[layer][property]
+    }))
+  )
+}
 
 try {
   if (!fs.existsSync(DESIGN_TOKENS_FILE)) {
@@ -43,36 +74,28 @@ try {
 
     console.log('🚀 Generating design tokens files...\n')
 
-    const dataObject = JSON.parse(data)
+    const layers = tokensDataMapper(data)
 
-    const tokensLayers = Object.keys(dataObject)
-
-    const layers = tokensLayers.map(layer =>
-      Object.keys(dataObject[layer]).map(property => ({
-        prefix: layer,
-        property,
-        value: dataObject[layer][property]
-      }))
-    )
-
-    Object.keys(OUPUT_FILE_FORMATS).map(format => {
-      const [wrapper, properties] = OUPUT_FILE_FORMATS[format]
-      const flatObject = obj => (format !== 'json' ? obj.join('') : obj)
-      const styles = flatObject(
-        layers.map(
-          layer => `${flatObject(layer.map(values => properties(values)))}\n`
+    Object.keys(FORMATS).map(format => {
+      const styles = layers
+        .map(
+          layer =>
+            `${layer
+              .map(values => toCSSFormats({format, ...values}))
+              .join('')}\n`
         )
+        .join('')
+
+      fs.writeFile(
+        `tokens/tokens.${format}`,
+        contentToFormat({format, styles}),
+        err => {
+          if (err) throw new Error(`\x1b[31m\n\n❌ ${err}\n\n`)
+          console.log(
+            `\x1b[32m✔︎\x1b[0m ${format.toUpperCase()} design tokens file generated!`
+          )
+        }
       )
-
-      const contentToFormat =
-        (format !== 'json' ? printDate(format) : '') + wrapper(styles)
-
-      fs.writeFile(`tokens/tokens.${format}`, contentToFormat, err => {
-        if (err) throw new Error(`\x1b[31m\n\n❌ ${err}\n\n`)
-        console.log(
-          `\x1b[32m✔︎\x1b[0m ${format.toUpperCase()} design tokens file generated!`
-        )
-      })
     })
   })
 } catch (err) {
