@@ -13,7 +13,7 @@ npm install figma-tokens --save-dev
 ### Extract Figma tokens schema
 
 ```node
-fimga-tokens api
+figma-tokens api
 ```
 
 ### Generate tokens as variables
@@ -23,7 +23,7 @@ Generate tokens as all plattforms tokens variables with a figma schema.
 **Supported format:** `CSS` / `SCSS` / `LESS` / `JS` / `JSON`
 
 ```node
-fimga-tokens build
+figma-tokens build
 ```
 
 ## 🤝 Requeriments
