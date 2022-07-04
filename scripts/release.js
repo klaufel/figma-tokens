@@ -17,11 +17,11 @@ async function commitAndPush () {
   const [errVersion] = await exec('npm version patch -m "Release %s version"')
   if (errVersion) throw error('Error creating new version of web')
 
-  console.log('⏫  Pushing changes to master...\n')
+  console.log('⏫  Pushing changes to main...\n')
   const [errPushingTags] = await exec('git push --tags')
   if (errPushingTags) throw error('Error pushing tags on git')
 
-  const [errPushingChanges] = await exec('git push origin master')
+  const [errPushingChanges] = await exec('git push origin main')
   if (errPushingChanges) throw error('Error pushing new release on git')
 }
 
@@ -38,10 +38,10 @@ async function release () {
   )
   if (errBranch) throw error('Error on getting git branch')
 
-  const isMaster = branchResponse.trim() === 'master'
+  const isMaster = branchResponse.trim() === 'main'
   if (!isMaster) {
     throw error(
-      'You are trying to release a new version in a branch. Move to master.'
+      'You are trying to release a new version in a branch. Move to main.'
     )
   }
 
