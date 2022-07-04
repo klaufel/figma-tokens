@@ -1,15 +1,6 @@
-const getBreakpoints = require('./getBreakpoints')
-const getColors = require('./getColors')
-const getRadius = require('./getRadius')
-const getShadows = require('./getShadows')
-const getSpacing = require('./getSpacing')
-const getTypography = require('./getTypography')
-
-module.exports = {
-  getBreakpoints,
-  getColors,
-  getRadius,
-  getShadows,
-  getSpacing,
-  getTypography
-}
+export { default as getBreakpoints } from './getBreakpoints.js'
+export { default as getColors } from './getColors.js'
+export { default as getRadius } from './getRadius.js'
+export { default as getShadows } from './getShadows.js'
+export { default as getSpacing } from './getSpacing.js'
+export { default as getTypography } from './getTypography.js'

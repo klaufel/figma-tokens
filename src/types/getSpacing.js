@@ -1,11 +1,11 @@
-const {getTokens, camelCase} = require('../utils')
+import { getTokens, camelCase } from '../utils.js'
 
-const getSpacing = (layerName, stylesArtboard) => {
-  const palette = {spacing: {}}
+export default function getSpacing (layerName, stylesArtboard) {
+  const palette = { spacing: {} }
   const decorator = element => {
     const {
       name,
-      absoluteBoundingBox: {width}
+      absoluteBoundingBox: { width }
     } = element
     const tokens = {
       [camelCase(name)]: `${width}px`
@@ -15,5 +15,3 @@ const getSpacing = (layerName, stylesArtboard) => {
 
   return getTokens(layerName, stylesArtboard, palette, decorator)
 }
-
-module.exports = getSpacing

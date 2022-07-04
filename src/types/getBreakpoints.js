@@ -1,9 +1,9 @@
-const {getTokens, camelCase} = require('../utils')
+import { getTokens, camelCase } from '../utils.js'
 
-const getBreakpoints = (layerName, stylesArtboard) => {
-  const palette = {breakpoint: {}}
+export default function getBreakpoints (layerName, stylesArtboard) {
+  const palette = { breakpoint: {} }
   const decorator = element => {
-    const {name, absoluteBoundingBox} = element
+    const { name, absoluteBoundingBox } = element
     const tokens = {
       [camelCase(name)]: `${absoluteBoundingBox.width}px`
     }
@@ -12,5 +12,3 @@ const getBreakpoints = (layerName, stylesArtboard) => {
 
   return getTokens(layerName, stylesArtboard, palette, decorator)
 }
-
-module.exports = getBreakpoints

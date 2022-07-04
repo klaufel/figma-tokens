@@ -1,14 +1,38 @@
-# figma-tokens
+# figma-tokens &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![npm](https://img.shields.io/npm/dt/figma-tokens.svg)](https://www.npmjs.org/package/figma-tokens) [![Gzip size](https://img.badgesize.io/https://unpkg.com/figma-tokens/?compression=gzip)](https://unpkg.com/figma-tokens/)
 
-Working on an npm package, you can look at this repository meanwhile :)
+> A light tool for generate Figma design tokens as variables.
 
-https://github.com/klaufel/pattern-library-skeleton/tree/master/src/figma-tokens
+## 🚀 Installation
+
+```sh
+npm install figma-tokens --save-dev
+```
+
+## 🧐 How to use?
+
+### Extract Figma tokens schema
+
+```node
+fimga-tokens api
+```
+
+### Generate tokens as variables
+
+Generate tokens as all plattforms tokens variables with a figma schema.
+
+**Supported format:** `CSS` / `SCSS` / `LESS` / `JS` / `JSON`
+
+```node
+fimga-tokens build
+```
 
 ## 🤝 Requeriments
 
 ### Duplicate figma design tokens file
 
-Figma file: https://www.figma.com/file/IGr2xoqcZX91CU7CDr4ZsI
+Duplicate and use the figma file to work with the token structure.
+
+[📄 Figma file template](https://www.figma.com/file/IGr2xoqcZX91CU7CDr4ZsI)
 
 ![image](https://user-images.githubusercontent.com/1427623/92307873-c4dbdf00-ef99-11ea-9ca4-eb9baecff1e5.png)
 
@@ -22,29 +46,16 @@ https://www.figma.com/developers/api
 
 ![image](https://user-images.githubusercontent.com/1427623/92307890-dde49000-ef99-11ea-9a03-fd5cc725d9ab.png)
 
-Install dependencies \$ npm install --save-dev figma-tokens
+Modify config with your figma API key and figma id in `config.figma.json`
 
-Modify config with your figma API key and figma id \$ figma.config.json
+### Create config
 
-Create config
 ![image](https://user-images.githubusercontent.com/1427623/92307902-f3f25080-ef99-11ea-94e4-69a06c0ad35a.png)
 
-### Generate design tokens as variables
+Working on an npm package, you can look at this repository meanwhile :)
 
-#### Add scripts
+https://github.com/klaufel/pattern-library-skeleton/tree/master/src/figma-tokens
 
-```json
-{
-  "figma-tokens": "npm run figma-tokens:api && npm run figma-tokens:build",
-  "figma-tokens:api": "./node_modules/figma-tokens/bin/figma-tokens-api",
-  "figma-tokens:build": "./node_modules/figma-tokens/bin/figma-tokens-build"
-}
-```
+## License
 
-\$ npm run figma-tokens
-
-\$ npm run figma-tokens:api Generate tokens data base (only figma)
-
-\$ npm run figma-tokens:build Generate all plattforms tokens vars with a figma data base
-
-😊 Enjoy!
+[MIT License](LICENSE.md) © [Juan Carlos Ruiz](https://github.com/klaufel)

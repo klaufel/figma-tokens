@@ -1,9 +1,9 @@
-const {getTokens, camelCase} = require('../utils')
+import { getTokens, camelCase } from '../utils.js'
 
-const getTypography = (layerName, stylesArtboard) => {
-  const palette = {typography: {}}
+export default function getTypography (layerName, stylesArtboard) {
+  const palette = { typography: {} }
   const decorator = element => {
-    const {name} = element
+    const { name } = element
     const {
       fontFamily,
       fontSize,
@@ -16,7 +16,7 @@ const getTypography = (layerName, stylesArtboard) => {
         fontFamily: `'${fontFamily}'`,
         fontSize: `${fontSize}px`,
         lineHeight: `${Math.floor(lineHeightPx)}px`,
-        fontWeight: fontWeight
+        fontWeight
       }
     }
     Object.assign(palette.typography, tokens)
@@ -24,5 +24,3 @@ const getTypography = (layerName, stylesArtboard) => {
 
   return getTokens(layerName, stylesArtboard, palette, decorator)
 }
-
-module.exports = getTypography

@@ -1,19 +1,18 @@
-/* eslint-disable no-console */
-const fs = require('fs')
-const ora = require('ora')
-const fetch = require('node-fetch')
-const path = require('path')
+import fs from 'fs'
+import ora from 'ora'
+import fetch from 'node-fetch'
+import path from 'path'
 
-const DESIGN_TOKENS_PATH = path.join(process.cwd(), '.', 'tokens')
-
-const {
+import {
   getColors,
   getTypography,
   getSpacing,
   getShadows,
   getBreakpoints,
   getRadius
-} = require('./types')
+} from './types/index.js'
+
+const DESIGN_TOKENS_PATH = path.join(process.cwd(), '.', 'tokens')
 
 const genFile = tokens => {
   if (!fs.existsSync(DESIGN_TOKENS_PATH)) {
@@ -30,7 +29,7 @@ const genFile = tokens => {
   )
 }
 
-const genTokens = (apikey, id) => {
+export default function genTokens(apikey, id) {
   const spinner = ora('🚀 Connecting with Figma...\n').start()
 
   const FETCH_PATH = 'https://api.figma.com/v1/files'
@@ -72,5 +71,3 @@ const genTokens = (apikey, id) => {
     throw new Error(`\x1b[31m\n\n❌ ${err}\n\n`)
   }
 }
-
-module.exports = genTokens

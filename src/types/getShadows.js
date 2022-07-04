@@ -1,10 +1,10 @@
-const {getTokens, camelCase, genShadow} = require('../utils')
+import { getTokens, camelCase, genShadow } from '../utils.js'
 
-const getShadows = (layerName, stylesArtboard) => {
-  const palette = {shadow: {}}
+export default function getShadows (layerName, stylesArtboard) {
+  const palette = { shadow: {} }
   const decorator = element => {
-    const {name} = element
-    const {color, offset, radius} = element.effects[0]
+    const { name } = element
+    const { color, offset, radius } = element.effects[0]
     const tokens = {
       [camelCase(name)]: genShadow(color, offset, radius)
     }
@@ -13,5 +13,3 @@ const getShadows = (layerName, stylesArtboard) => {
 
   return getTokens(layerName, stylesArtboard, palette, decorator)
 }
-
-module.exports = getShadows

@@ -2,12 +2,17 @@
   "name": "figma-tokens",
   "version": "0.0.7",
   "description": "A tool for generate Figma design tokens as variables",
-  "main": "bin/figma-tokens.js",
+  "main": "./bin/figma-tokens.js",
   "repository": {
     "url": "git@github.com:klaufel/figma-tokens.git"
   },
+  "type": "module",
+  "files": [
+    "bin",
+    "src"
+  ],
   "bin": {
-    "figma-tokens": "bin/figma-tokens.js"
+    "figma-tokens": "node bin/figma-tokens.js"
   },
   "scripts": {
     "test": "exit 0",
@@ -28,26 +33,11 @@
   "license": "MIT",
   "homepage": "https://github.com/klaufel/figma-tokens#readme",
   "dependencies": {
-    "commander": "^6.2.1",
-    "node-fetch": "^2.6.1",
-    "ora": "^5.2.0"
+    "commander": "9.3.0",
+    "node-fetch": "3.2.6",
+    "ora": "6.1.2"
   },
   "devDependencies": {
-    "@s-ui/lint": "^3.30.0",
-    "husky": "^4.3.6"
-  },
-  "eslintConfig": {
-    "extends": [
-      "./node_modules/@s-ui/lint/eslintrc.js"
-    ]
-  },
-  "prettier": "./node_modules/@s-ui/lint/.prettierrc.js",
-  "stylelint": {
-    "extends": "./node_modules/@s-ui/lint/stylelint.config.js"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "prettier \"./src/**/*.{js,jsx}\" --write"
-    }
+    "standard": "17.0.0"
   }
 }
