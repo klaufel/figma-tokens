@@ -1,10 +1,10 @@
-const {getTokens, camelCase} = require('../utils')
+import { getTokens, camelCase } from '../utils.js'
 
-const getRadius = (layerName, stylesArtboard) => {
-  const palette = {radius: {}}
+export default function getRadius (layerName, stylesArtboard) {
+  const palette = { radius: {} }
   const decorator = element => {
-    const {name} = element
-    const {cornerRadius} = element.children[0]
+    const { name } = element
+    const { cornerRadius } = element.children[0]
     const tokens = {
       [camelCase(name)]: `${cornerRadius}px`
     }
@@ -13,5 +13,3 @@ const getRadius = (layerName, stylesArtboard) => {
 
   return getTokens(layerName, stylesArtboard, palette, decorator)
 }
-
-module.exports = getRadius

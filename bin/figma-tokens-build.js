@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-/* eslint no-console:0 */
-const fs = require('fs')
-const path = require('path')
-const {camelCase, kebabCase} = require('../src/utils')
 
-const NAMING_CONVENTION = {kebabcase: kebabCase, camelcase: camelCase}
+import fs from 'fs'
+import path from 'path'
+import { camelCase, kebabCase } from '../src/utils.js'
+
+const NAMING_CONVENTION = { kebabcase: kebabCase, camelcase: camelCase }
 
 const DESIGN_TOKENS_FILE = path.join(process.cwd(), '.', 'tokens/tokens.json')
 
@@ -28,10 +28,10 @@ const FORMATS = {
   }
 }
 
-const toCSSFormats = ({format, prefix, property, value}) => {
-  const {pattern, naming} = FORMATS[format]
+const toCSSFormats = ({ format, prefix, property, value }) => {
+  const { pattern, naming } = FORMATS[format]
   const propertyWithPrefix = NAMING_CONVENTION[naming](`${prefix}-${property}`)
-  const options = {property: propertyWithPrefix, value}
+  const options = { property: propertyWithPrefix, value }
 
   return pattern.replace(
     new RegExp('%{([^}]+)}', 'gi'),
@@ -42,8 +42,8 @@ const toCSSFormats = ({format, prefix, property, value}) => {
 const printDate = format =>
   `/* ${format.toUpperCase()} file automatically generated on ${new Date().toLocaleString()} */\n\n`
 
-const contentToFormat = ({format, styles}) => {
-  const {decorator} = FORMATS[format]
+const contentToFormat = ({ format, styles }) => {
+  const { decorator } = FORMATS[format]
   return (
     printDate(format) +
     (decorator ? decorator.replace('%{children}', styles) : styles)
@@ -76,19 +76,19 @@ try {
 
     const layers = tokensDataMapper(data)
 
-    Object.keys(FORMATS).map(format => {
+    Object.keys(FORMATS).forEach(format => {
       const styles = layers
         .map(
           layer =>
             `${layer
-              .map(values => toCSSFormats({format, ...values}))
+              .map(values => toCSSFormats({ format, ...values }))
               .join('')}\n`
         )
         .join('')
 
       fs.writeFile(
         `tokens/tokens.${format}`,
-        contentToFormat({format, styles}),
+        contentToFormat({ format, styles }),
         err => {
           if (err) throw new Error(`\x1b[31m\n\n❌ ${err}\n\n`)
           console.log(

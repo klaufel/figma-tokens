@@ -1,19 +1,20 @@
-const filterArtboard = (layerName, stylesArtboard = []) =>
-  stylesArtboard.filter(item => item.name === layerName)[0].children
+export const filterArtboard = (layerName, stylesArtboard = []) => {
+  return stylesArtboard.filter(item => item.name === layerName)[0].children
+}
 
-const filterElements = (layerName, stylesArtboard = [], type = 'COMPONENT') => {
+export const filterElements = (layerName, stylesArtboard = [], type = 'COMPONENT') => {
   return filterArtboard(layerName, stylesArtboard).filter(
     item => item.type === type
   )
 }
 
-const getTokens = (layerName, stylesArtboard, palette, decorator) => {
+export const getTokens = (layerName, stylesArtboard, palette, decorator) => {
   const elements = filterElements(layerName, stylesArtboard)
   elements.map(element => decorator(element))
   return palette
 }
 
-const camelCase = string => {
+export const camelCase = string => {
   const stringUpdate = string
     .toLowerCase()
     .replace(/(?:(^.)|([-_\s]+.))/g, match =>
@@ -22,64 +23,48 @@ const camelCase = string => {
   return stringUpdate.charAt(0).toLowerCase() + stringUpdate.substring(1)
 }
 
-const kebabCase = string => {
+export const kebabCase = string => {
   return string
     .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
     .map(x => x.toLowerCase())
     .join('-')
 }
 
-const trim = str => str.replace(/^\s+|\s+$/gm, '')
+export const trim = str => str.replace(/^\s+|\s+$/gm, '')
 
-const getColor = color => Math.round(color * 255)
+export const getColor = color => Math.round(color * 255)
 
-const rgbaGen = (r, g, b, a) =>
-  `rgba(${getColor(r)}, ${getColor(g)}, ${getColor(b)}, ${a})`
-
-const rgbaGenObject = (r, g, b, a) => {
-  return {r: getColor(r), g: getColor(g), b: getColor(b), a: a}
+export const rgbaGen = (r, g, b, a) => {
+  return `rgba(${getColor(r)}, ${getColor(g)}, ${getColor(b)}, ${a})`
 }
 
-const rgbGen = (r, g, b) => {
+export const rgbaGenObject = (r, g, b, a) => {
+  return { r: getColor(r), g: getColor(g), b: getColor(b), a }
+}
+
+export const rgbGen = (r, g, b) => {
   const getColor = color => Math.round(color * 255)
   return `rgba(${getColor(r)}, ${getColor(g)}, ${getColor(b)})`
 }
 
-const rgbToHex = rgb => {
+export const rgbToHex = rgb => {
   const hex = Number(rgb).toString(16)
   return hex.length < 2 ? `0${hex}` : hex
 }
 
-const fullColorHex = (r, g, b) => {
+export const fullColorHex = (r, g, b) => {
   const red = rgbToHex(r)
   const green = rgbToHex(g)
   const blue = rgbToHex(b)
   return `#${red + green + blue}`
 }
 
-const parseRGBA = color => {
-  const {r, g, b, a} = color
+export const parseRGBA = color => {
+  const { r, g, b, a } = color
   return `rgba(${r}, ${g}, ${b}, ${a})`
 }
 
-const genShadow = (color, offset, radius) => {
-  const {x, y} = offset
+export const genShadow = (color, offset, radius) => {
+  const { x, y } = offset
   return `${x}px ${y}px ${radius}px ${parseRGBA(color)}`
-}
-
-module.exports = {
-  camelCase,
-  kebabCase,
-  filterArtboard,
-  filterElements,
-  fullColorHex,
-  genShadow,
-  getColor,
-  getTokens,
-  parseRGBA,
-  rgbaGen,
-  rgbaGenObject,
-  rgbGen,
-  rgbToHex,
-  trim
 }
