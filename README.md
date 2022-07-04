@@ -50,7 +50,14 @@ Modify config with your figma API key and figma id in `config.figma.json`
 
 ### Create config
 
-![image](https://user-images.githubusercontent.com/1427623/92307902-f3f25080-ef99-11ea-94e4-69a06c0ad35a.png)
+Create a `config.figma.json` file and added your credentials.
+
+```json
+{
+  "FIGMA_APIKEY": "Your Figma API key",
+  "FIGMA_ID": "Your Figma file id"
+}
+```
 
 Working on an npm package, you can look at this repository meanwhile :)
 
